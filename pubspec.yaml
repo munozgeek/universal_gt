@@ -42,6 +42,9 @@ dependencies:
   audio_session: ^0.1.6+1
   flutter_svg: ^1.0.3
   http: ^0.13.4
+  json_helpers: ^0.1.5
+  font_awesome_flutter: ^9.2.0
+  url_launcher: ^6.0.18
 
 dev_dependencies:
   flutter_test:

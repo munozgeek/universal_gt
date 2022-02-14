@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class CustomBottonNaviga extends StatefulWidget {
   final int _currentPage;
@@ -18,8 +19,10 @@ class _CustomBottonNavigaState extends State<CustomBottonNaviga> {
               Navigator.pushNamed(context, 'homePage');
             } else if(index == 1){
               Navigator.pushNamed(context, 'contactPage');
-            } else {
+            } else if(index == 2){
               Navigator.pushNamed(context, 'programationPage');
+            } else {
+              Navigator.pushNamed(context, 'bloggerPage');
             }
           });
         },
@@ -29,16 +32,20 @@ class _CustomBottonNavigaState extends State<CustomBottonNaviga> {
         currentIndex: widget._currentPage,
         items: const [
         BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: Icon(FontAwesomeIcons.home),
             label: 'Inicio'
         ),
       BottomNavigationBarItem(
-          icon: Icon(Icons.perm_contact_cal),
+          icon: Icon(FontAwesomeIcons.globeAmericas),
           label: 'Contactanos'
       ),
       BottomNavigationBarItem(
-          icon: Icon(Icons.playlist_play),
+          icon: Icon(FontAwesomeIcons.tasks),
           label: 'Programación'
+      ),
+      BottomNavigationBarItem(
+          icon: Icon(FontAwesomeIcons.church),
+          label: 'Obispos'
       ),
     ]);
   }

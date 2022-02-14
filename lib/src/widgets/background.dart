@@ -18,7 +18,7 @@ class Background extends StatelessWidget {
         // Pink box
         Positioned(
           top: -110,
-          left: -5,
+          left: -25,
           child: _PinkBox()
         ),
       ],
@@ -31,7 +31,7 @@ class _PinkBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Transform.rotate(
-      angle: -pi / 8,
+      angle: -pi / 11,
       child: Container(
         width: 460,
         height: 230,

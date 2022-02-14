@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:universal_gt/src/Handler/audio_player_handler.dart';
+import 'package:universal_gt/src/pages/blogger_page.dart';
 import 'package:universal_gt/src/pages/contact_page.dart';
 import 'package:universal_gt/src/pages/programation_page.dart';
 
@@ -21,6 +23,10 @@ Future<void> main() async {
       androidNotificationOngoing: true,
     ),
   );
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   runApp(const MyApp());
 }
 
@@ -43,6 +49,7 @@ class _MyAppState extends State<MyApp> {
         'homePage': (BuildContext context ) => HomePage(),
         'contactPage': (BuildContext context ) => ContactPage(),
         'programationPage': (BuildContext context ) => ProgramationPage(),
+        'bloggerPage': (BuildContext context ) => BloggerPage(),
       },
     );
   }
@@ -67,46 +74,44 @@ class _HomePageState extends State<HomePage> {
         children: [
           Background(),
           _HomeBody(),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(child: Container()),
-              // Show media item title
-              const Padding(
-                  padding: EdgeInsets.fromLTRB(25, 10, 25, 35),
-                child: Image(
-                  image: NetworkImage('https://universal.org.gt/App/Img/User/photo-2022-01-07-08-41-04-61d85198db459.jpeg'),
+          Container(
+            padding: EdgeInsets.only(top: 175),
+              child:
+              Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // Show media item title
+                    const Padding(
+                      padding: EdgeInsets.fromLTRB(25, 10, 25, 60),
+                      child: Image(
+                        image: NetworkImage('https://universal.org.gt/App/Img/User/photo-2022-01-07-08-41-04-61d85198db459.jpeg'),
+                      ),
+                    ),
+
+                    // Play/pause/stop buttons.
+                    StreamBuilder<bool>(
+                      stream: _audioHandler.playbackState
+                          .map((state) => state.playing)
+                          .distinct(),
+                      builder: (context, snapshot) {
+                        final playing = snapshot.data ?? false;
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            if (playing)
+                              _button(Icons.stop, _audioHandler.stop)
+                            else
+                              _button(Icons.play_arrow, _audioHandler.play),
+
+                          ],
+                        );
+                      },
+                    ),
+                    // Display the processing state.
+                  ],
                 ),
-              ),
-
-              StreamBuilder<MediaItem?>(
-                stream: _audioHandler.mediaItem,
-                builder: (context, snapshot) {
-                  final mediaItem = snapshot.data;
-                  return Text(mediaItem?.title ?? '', style: const TextStyle( fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white ));
-                },
-              ),
-              // Play/pause/stop buttons.
-              StreamBuilder<bool>(
-                stream: _audioHandler.playbackState
-                    .map((state) => state.playing)
-                    .distinct(),
-                builder: (context, snapshot) {
-                  final playing = snapshot.data ?? false;
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      if (playing)
-                        _button(Icons.stop, _audioHandler.stop)
-                      else
-                        _button(Icons.play_arrow, _audioHandler.play),
-
-                    ],
-                  );
-                },
-              ),
-              // Display the processing state.
-            ],
+              )
           ),
         ],
       ),
@@ -130,7 +135,7 @@ class _HomeBody extends StatelessWidget {
         children: [
           // Titulos
           PageTitle(const [
-            Text('UNIRADIO', style: TextStyle( fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white )),
+            Text('RADIO', style: TextStyle( fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white )),
             SizedBox( height: 10 ),
             Text('Disfruta de nuestra programación', style: TextStyle( fontSize: 18, color: Colors.white )),
             Text('que tenemos solo para ti', style: TextStyle( fontSize: 18, color: Colors.white )),
