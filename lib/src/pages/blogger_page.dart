@@ -38,7 +38,6 @@ class _BloggerPageState extends State<BloggerPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getBlogger();
   }
 
   @override

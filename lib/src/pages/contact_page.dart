@@ -35,7 +35,6 @@ class _ContactPageState extends State<ContactPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getContact();
   }
 
   @override
