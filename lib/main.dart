@@ -43,7 +43,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
-      title: 'Radio Omega',
+      title: 'Uniradio',
       initialRoute: 'homePage',
       routes: {
         'homePage': (BuildContext context ) => HomePage(),
